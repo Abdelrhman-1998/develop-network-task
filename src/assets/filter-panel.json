@@ -1,0 +1,55 @@
+{
+    "controls": [
+      {
+        "name": "name",
+        "label": "Name",
+        "value": "",
+        "type": "text",
+        "validators": {
+        }
+      },
+      {
+        "name": "joining date",
+        "label": "Joining Date",
+        "value": "",
+        "type": "date",
+        "validators": {}
+      },
+      {
+        "name": "department",
+        "label": "Department",
+        "value": "",
+        "type": "select",
+        "selectOptions":[
+          "Finance","IT","Human resources","Marketing and sales"
+        ],
+        "validators": {}
+      },
+      {
+        "name": "salary",
+        "label": "Salary",
+        "value": "",
+        "type": "number",
+        "options":{
+          "min":"2000",
+          "max":"12000",
+          "step":"2000"
+        },
+        "validators": {}
+      },
+      {
+        "name": "experience",
+        "value": "false",
+        "type": "checkbox",
+        "checkBoxGroup":{
+          "Less than a year":false,
+          "From 1-3 years":false,
+          "3 years or above":false
+        }
+,
+        "validators": {}
+      }
+      
+    ]
+ 
+  }

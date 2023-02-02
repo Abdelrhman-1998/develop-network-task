@@ -1,0 +1,18 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" >
+      <ng-container *ngFor="let item of displayedColumns " matColumnDef={{item}} >
+        <th class="columnName" mat-header-cell *matHeaderCellDef >{{item}}</th>
+        <td  mat-cell *matCellDef="let element"> {{
+            (item | lowercase )==='name'?element.first_name+' '+element.last_name
+            :(item | lowercase )==='employment date'?(element['employment_Date'] | date:'shortDate')
+            :element[item | lowercase]}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>

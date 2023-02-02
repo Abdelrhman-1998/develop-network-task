@@ -1,0 +1,70 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div  *ngFor="let control of jsonFormData?.controls ">
+        <div [ngSwitch]="control.type">
+            <div *ngSwitchCase="'text'">
+                <div>
+                    <label  for={{control.name}} class="form-label mb-0">{{control.label}}</label>
+                    <input [formControlName]="control.name" type={{control.type}} class="form-control" id={{control.name}}>
+                </div>
+            </div>
+            <div *ngSwitchCase="'select'" >
+                <!--  -->
+                <label  for={{control.name}} class="form-label mb-0">{{control.label}}</label>
+                <br>
+                <mat-form-field appearance="fill" >
+                    <mat-label>Department</mat-label>
+                    <mat-select [formControlName]="control.name">
+                        <mat-option *ngFor="let option of control?.selectOptions" 
+                        [value]="option">{{option}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+       
+            </div>
+            <div *ngSwitchCase="'number'">
+                <!--  -->
+                <div>
+                    <label  for={{control.name}} class="form-label mb-0">{{control.label}}</label>
+                    <input [placeholder]="control.name" [step]="control.options!.step"  [max]="control.options!.max"  [min]="control.options!.min" [formControlName]="control.name" type={{control.type}} class="form-control" id={{control.name}}>
+                </div>
+            </div>
+            <div *ngSwitchCase="'date'">
+                <!--  -->
+                <div class="d-flex  align-items-end">
+                    <div class="w-100">
+                        <mat-label  class="form-label">{{control.label}}</mat-label>
+                        <input [formControlName]="control.name" class="form-control" matInput [matDatepicker]="picker">
+                    </div>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+    
+            <div *ngSwitchCase="'checkbox'">
+                <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{
+                                (control.name[0] | uppercase) + control.name.slice(1)}}
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <span class="example-list-section">
+                        <ul [formGroupName]="control.name">
+                          <li *ngFor="let subtask of checkBoxGroups![control.name]">
+                            <mat-checkbox color="primary" [formControlName]="subtask">
+                              {{subtask}}
+                            </mat-checkbox>
+                          </li>
+                        </ul>
+                      </span>
+                      </mat-expansion-panel>
+
+                </mat-accordion>
+                <!--  -->
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-danger" type="button" (click)="resetForm()" >Reset</button>
+</form>

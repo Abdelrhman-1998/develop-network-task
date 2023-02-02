@@ -1,0 +1,17 @@
+.wrapper{
+    row-gap: 16px;
+    overflow-x: scroll;
+    @media(min-width:1024px){
+        overflow-x: unset;
+      
+    }
+    .employeesTable{
+   
+       @media(min-width:1200px){
+        min-width: unset;
+       }
+        min-width: 767px;
+     
+    }
+ 
+}
