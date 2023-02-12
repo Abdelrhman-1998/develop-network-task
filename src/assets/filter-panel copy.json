@@ -1,0 +1,40 @@
+{
+    "controls": [
+      {
+        "name": "name",
+        "label": "Name",
+        "value": "",
+        "type": "text",
+        "class":"col-lg-6",
+        "placeholder":"Ex:John Doe",
+        "validators": {
+          "required":true
+        }
+      },
+
+      {
+        "name": "password",
+        "label": "Password",
+        "value":"",
+        "type": "password",
+        "class":"col-lg-6",
+        "validators": {
+          "required":true
+        }
+      },
+      {
+        "name": "email",
+        "label": "email",
+        "value": "",
+        "type": "email",
+        "placeholder":"Ex:John@gmail.com",
+
+        "validators": {
+          "required":true
+        },
+        "hasAsyncValidators":true
+       
+      }
+    ]
+ 
+  }

@@ -1,23 +1,8 @@
-
-  <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title class="title">
-          Filters
-        </mat-panel-title>
-    
-        <mat-panel-description>
-   
-            <mat-icon>reorder</mat-icon>
- 
-        </mat-panel-description>
-
-      </mat-expansion-panel-header>
-  
-      
-      <app-json-form [jsonFormData]="formData"></app-json-form>
-  
-  
-     
-    </mat-expansion-panel>
-  </mat-accordion>
+<div class="row m-0">
+    <div class="col-lg-6">
+        <app-json-form [formId]="'1'" [jsonFormData]="formData1" [onReset]="resetForm" [onSubmit]="submitForm" [formClass]="'dynamic-form'" ></app-json-form>
+    </div>
+    <div class="col-lg-6">
+        <app-json-form [formId]="'2'" [jsonFormData]="formData2" [onReset]="resetForm" [onSubmit]="submitForm" [formClass]="'dynamic-form'" ></app-json-form>
+    </div>
+</div>

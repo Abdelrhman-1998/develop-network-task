@@ -1,0 +1,150 @@
+<form  class="row m-0" [ngClass]="formClass" [formGroup]="myForm" (ngSubmit)="onSubmit?onSubmit(myForm):''">
+    <div [ngClass]="control.class?control.class:''" *ngFor="let control of jsonFormData?.controls;let i=index ">
+        <div  [ngSwitch]="control.type">
+            <div *ngSwitchCase="'text'">
+                <div>
+                    <label  for={{control.name+formId}} class="form-label mb-0">
+                        <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                    <input    [placeholder]="control.placeholder?control.placeholder:''" [formControlName]="control.name" type={{control.type}} class="form-control" id={{control.name+formId}}>
+                </div>
+            </div>
+            <div *ngSwitchCase="'textarea'">
+                <label  for={{control.name+formId}} class="form-label mb-0">
+                    <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                <mat-form-field  appearance="fill" >
+                   
+                    <textarea
+                        id={{control.name+formId}}
+                            [placeholder]="control.placeholder?control.placeholder:''"
+                             matInput
+                              cdkTextareaAutosize
+                              cdkAutosizeMinRows="4"
+                              cdkAutosizeMaxRows="5"
+                              [formControlName]="control.name"></textarea>
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'file'">
+                <div >
+                    <label  for={{control.name+formId}} class="form-label mb-0">
+                        <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                    <input [formControlName]="control.name" type={{control.type}} class="form-control" id={{control.name+formId}}>
+                </div>
+            </div>
+            <div *ngSwitchCase="'password'">
+                <div >
+                    <label  for={{control.name+formId}} class="form-label mb-0">
+                        <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                    <div class=" d-flex align-items-center gap-2 password">
+                        <input autocomplete="current-password"   [placeholder]="control.placeholder?control.placeholder:''" #password class="form-control" [formControlName]="control.name" type={{control.type}}  id={{control.name+formId}}>
+                        <mat-icon matRipple style="cursor: pointer;"
+                        [matRippleCentered]="true" [matRippleUnbounded]="true" [matRippleRadius]="18" (click)="togglePassword(password)" color="primary">{{formIcons['passwordIcon']}}</mat-icon>                       
+                    </div>
+                </div>
+            </div>
+            <div *ngSwitchCase="'email'">
+                <div>
+                    <label  for={{control.name+formId}} class="form-label mb-0">
+                        <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                    <input autocomplete="email"   [placeholder]="control.placeholder?control.placeholder:''" [formControlName]="control.name" type={{control.type}} class="form-control" id={{control.name+formId}}>
+                </div>
+                <ul *ngIf="myForm.get(control.name)?.touched&&myForm.get(control.name)?.invalid" class="p-0 ps-2 text-danger">
+                    <li  *ngIf="myForm.get(control.name)!.errors!['required']">
+                        {{'Email is required'}}
+                    </li>
+                    <li *ngIf="!myForm.get(control.name)!.errors!['required'] && myForm.get(control.name)!.errors!['email']['isEmail']">
+                        {{myForm.get(control.name)!.errors!['email']['isEmail']}}
+                    </li>     
+                </ul>
+            </div>
+            <div *ngSwitchCase="'select'" >
+                <!--  -->
+                <label class="form-label mb-0">
+                    <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                <br>
+                <mat-form-field  appearance="fill" [ngClass]="'select select-'+i" >
+                    <mat-select   [placeholder]="control.placeholder?control.placeholder:''" panelClass="select-dropdown" [formControlName]="control.name">
+                        <mat-option *ngFor="let option of control.hasAsyncSearch?asynchSelectSearch[control.name]: control.selectOptions" 
+                        [value]="option">{{option}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+       
+            </div>
+            <div *ngSwitchCase="'select-search'">
+                <!--  -->
+                <label  class="form-label mb-0">
+                    <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                <br>
+                <mat-form-field class="example-full-width" appearance="fill" >
+            
+                    <input type="text"
+                           [placeholder]="control.placeholder?control.placeholder:''"
+                           matInput
+                           [formControlName]="control.name"
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let option  of selectSearch[control.name]" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'number'">
+                <!--  -->
+                <div>
+                    <label  for={{control.name+formId}} class="form-label mb-0">
+                        <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                    <input [placeholder]="control.placeholder?control.placeholder:''" [step]="control.options!.step"  [max]="control.options!.max"  [min]="control.options!.min" [formControlName]="control.name" type={{control.type}} class="form-control" id={{control.name+formId}}>
+
+                </div>
+            </div>
+            <div *ngSwitchCase="'date'">
+                <!--  -->
+                <div class="d-flex  align-items-end">
+                    <div class="w-100">
+                        <mat-label  class="form-label">                        <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</mat-label>
+                        <input    [placeholder]="control.placeholder?control.placeholder:''" [formControlName]="control.name" class="form-control"  [matDatepicker]="picker">
+                    </div>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div *ngSwitchCase="'checkbox'">
+                <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span *ngIf="control.validators.required" class="requiredAstriek">*</span>
+                            {{control.label}}
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <span class="example-list-section">
+                        <ul [formGroupName]="control.name">
+                          <li *ngFor="let subtask of checkBoxGroups![control.name]">
+                            <mat-checkbox color="primary" [formControlName]="subtask">
+                              {{subtask}}
+                            </mat-checkbox>
+                          </li>
+                        </ul>
+                      </span>
+                      </mat-expansion-panel>
+
+                </mat-accordion>
+                <!--  -->
+            </div>
+            <div *ngSwitchCase="'radio'">
+                <label id="example-radio-group-label ">
+                    <span *ngIf="control.validators.required" class="requiredAstriek">*</span>{{control.label}}</label>
+                <mat-radio-group [formControlName]="control.name"
+                  aria-labelledby="example-radio-group-label"
+                  class="example-radio-group d-flex flex-column gap-2">
+                  <mat-radio-button  color="primary" class="example-radio-button d-flex flex-column" *ngFor="let option of control.radioGroup" [value]="option" >
+                    {{option}}
+                  </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="jsonFormData" class=" btn btn-primary" type="submit">Submit</button>
+    <button *ngIf="jsonFormData" class="btn btn-danger" type="button" (click)="onReset?onReset(myForm):''" >Reset</button>
+</form>

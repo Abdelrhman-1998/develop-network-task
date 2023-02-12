@@ -5,12 +5,41 @@
         "label": "Name",
         "value": "",
         "type": "text",
+        "class":"col-lg-6",
+        "placeholder":"Ex:John Doe",
         "validators": {
+          "required":true
         }
+      },
+
+      {
+        "name": "password",
+        "label": "Password",
+        "value":"",
+        "type": "password",
+        "class":"col-lg-6",
+        "validators": {
+          "required":true
+        }
+      },
+      {
+        "name": "email",
+        "label": "email",
+        "value": "",
+        "type": "email",
+        "placeholder":"Ex:John@gmail.com",
+
+        "validators": {
+          
+          "required":true
+        },
+        "hasAsyncValidators":true
+       
       },
       {
         "name": "joining date",
         "label": "Joining Date",
+
         "value": "",
         "type": "date",
         "validators": {}
@@ -19,9 +48,31 @@
         "name": "department",
         "label": "Department",
         "value": "",
+        "placeholder":"Ex:IT",
         "type": "select",
         "selectOptions":[
           "Finance","IT","Human resources","Marketing and sales"
+        ],
+        "validators": {"required":true}
+      },
+      {
+        "name": "country",
+        "label": "Country",
+        "placeholder":"Ex:Egypt",
+        "value":"",
+        "type":"select-search",
+        "hasAsyncSearch":true,
+        "asyncSelectOptions":"assets/country.json",
+        "validators": {}
+      },
+      {
+        "name": "city",
+        "label": "City",
+        "placeholder":"Ex:Cairo",
+        "value":"",
+        "type":"select-search",
+        "selectOptions":[
+          "Alexandria","Luxor","Aswan","Cairo"
         ],
         "validators": {}
       },
@@ -39,7 +90,7 @@
       },
       {
         "name": "experience",
-        "value": "false",
+        "label":"Experience",
         "type": "checkbox",
         "checkBoxGroup":{
           "Less than a year":false,
@@ -48,8 +99,37 @@
         }
 ,
         "validators": {}
+      },
+
+      {
+        "name": "gender",
+        "label": "Gender",
+        "value":"male",
+        "type": "radio",
+        "validators": {
+        },
+        "radioGroup":[
+          "male","female"
+        ]
+
+      },
+      {
+        "name": "leave comment",
+        "label": "Leave comment",
+        "value": "",
+        "type": "textarea",
+        "validators": {
+    
+        }
+      },
+      {
+        "name":"file",
+        "label": "File",
+        "value": "",
+        "type":"file",
+        "validators": {
+        }
       }
-      
     ]
  
   }

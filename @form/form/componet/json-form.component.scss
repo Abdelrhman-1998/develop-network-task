@@ -1,0 +1,29 @@
+form{
+    row-gap: 16px;
+    span.requiredAstriek{
+        color: red;
+    }
+    ul{
+        list-style-type: none;
+        margin-top: 4px;
+        margin-bottom: 0px;
+    }
+    overflow: hidden;
+    .mat-form-field-flex{
+            background-color: white;
+            border-top: 0px;
+    }
+    .mat-form-field-infix{
+        border-top: 0px;
+    }
+    .mat-form-field-appearance-fill  {
+        .mat-form-field-flex {
+            background-color: white;
+      
+        }
+        .mat-select-arrow-wrapper{
+            transform: translateY(0%);
+        }
+        
+    }
+}
